@@ -1067,35 +1067,34 @@ input:focus {
   </p>
 
 
-  <div class="photo-grid">
-
-    <div class="photo" onclick="revealPhoto(this)">
+    <div class="photos-grid">
+  
+    <div class="photo" onclick="answerPhoto(1)">
       <div class="photo-cover">
         💌
         <span>Haz clic para descubrir</span>
       </div>
       <img src="foto1.jpg" alt="Foto 1">
     </div>
-    
-    <div class="photo" onclick="revealPhoto(this)">
+  
+    <div class="photo" onclick="answerPhoto(2)">
       <div class="photo-cover">
         💌
         <span>Haz clic para descubrir</span>
       </div>
       <img src="foto2.jpg" alt="Foto 2">
     </div>
-    
-    <div class="photo" onclick="revealPhoto(this)">
+  
+    <div class="photo" onclick="answerPhoto(3)">
       <div class="photo-cover">
         💌
         <span>Haz clic para descubrir</span>
       </div>
       <img src="foto3.jpg" alt="Foto 3">
     </div>
-
+  
   </div>
-
-
+  
   <div id="photoResult"></div>
 
 
@@ -1859,8 +1858,40 @@ setInterval(
   1000
 );
 
-function revealPhoto(photo) {
-  photo.classList.add("revealed");
+function answerPhoto(number){
+
+  const photos = document.querySelectorAll('.photo');
+  const selectedPhoto = photos[number - 1];
+
+  // Revela la foto que seleccionó
+  selectedPhoto.classList.add('revealed');
+
+  // FOTO CORRECTA
+  if(number === 2){
+
+    document.getElementById('photoResult').innerHTML = `
+      <div class="success">
+        📸 ¡Correcto! 💗
+      </div>
+
+      <div class="clue-box">
+        <b>PISTA #4</b><br><br>
+        Esta foto guarda un recuerdo que quiero seguir construyendo contigo.
+      </div>
+
+      <button onclick="unlockPiece(4); backToMenu()">
+        GUARDAR PISTA 🧩
+      </button>
+    `;
+
+  } else {
+
+    document.getElementById('photoResult').innerHTML = `
+      <div class="error">
+        Mmm… esa no era 😌
+      </div>
+    `;
+  }
 }
 
 </script>
