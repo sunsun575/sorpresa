@@ -413,9 +413,9 @@ input:focus {
   <p>Primera pregunta:<br><br><strong>¿Cuál fue nuestro primer concierto juntos?</strong></p>
 
   <div id="memoryButtons">
-    <button onclick="memoryAnswer(false)">Los 4</button>
-    <button onclick="memoryAnswer(true)">Caribeños</button>
-    <button onclick="memoryAnswer(false)">Armonía 10</button>
+    <button onclick="memoryAnswer('los4')">Los 4</button>
+    <button onclick="memoryAnswer('caribenos')">Caribeños</button>
+    <button onclick="memoryAnswer('armonia')">Armonía 10</button>
   </div>
 
   <div id="memoryResult"></div>
@@ -571,9 +571,10 @@ function unlockPiece(number) {
   }
 }
 
-function memoryAnswer(correct) {
+function memoryAnswer(option) {
   const result = document.getElementById("memoryResult");
-  if (correct) {
+
+  if (option === 'caribenos') {
     result.innerHTML = `
       <div class='clue'>
         🎉 ¡Correcto!<br><br>Un día después de la celebración de mi cumple 😌<br><br>
@@ -581,8 +582,20 @@ function memoryAnswer(correct) {
       </div>
       <button onclick='unlockPiece(2); backToMenu()'>GUARDAR PISTA 🧩</button>
     `;
-  } else {
-    result.innerHTML = "<p>JAJAJA NO 😭<br>Intenta otra vez.</p>";
+  } else if (option === 'los4') {
+    result.innerHTML = `
+      <p>
+        Esa fue mucho después de la primera 🤭<br>
+        Intenta otra vez.
+      </p>
+    `;
+  } else if (option === 'armonia') {
+    result.innerHTML = `
+      <p>
+        ¡Casi! Acuérdate de que cuando llegamos, primero escuchamos a los Caribeños y luego a Armonía 👀<br>
+        Intenta otra vez.
+      </p>
+    `;
   }
 }
 
