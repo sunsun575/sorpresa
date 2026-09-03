@@ -1,0 +1,896 @@
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Una pequeña sorpresa 💌</title>
+
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    font-family: Georgia, "Times New Roman", serif;
+    background: linear-gradient(135deg, #fff7f8, #fceff3);
+    color: #4a3038;
+  }
+
+  .card {
+    width: min(92%, 560px);
+    padding: 42px 28px;
+    text-align: center;
+    background: rgba(255,255,255,.94);
+    border-radius: 28px;
+    box-shadow: 0 15px 45px rgba(100,50,70,.14);
+  }
+
+  .emoji {
+    font-size: 50px;
+    margin-bottom: 10px;
+  }
+
+  h1 {
+    margin: 8px 0 14px;
+    font-size: 30px;
+  }
+
+  p {
+    font-size: 18px;
+    line-height: 1.6;
+  }
+
+  button {
+    border: 0;
+    border-radius: 999px;
+    padding: 14px 24px;
+    margin: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    background: #d96c8a;
+    color: white;
+    transition: .2s;
+  }
+
+  button:hover {
+    transform: translateY(-2px);
+  }
+
+  .secondary {
+    background: #ead5dc;
+    color: #4a3038;
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  .hint {
+    font-size: 14px;
+    opacity: .7;
+    margin-top: 20px;
+  }
+
+  .choices {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  #countdown {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 18px 0;
+  }
+
+  .clue {
+    margin: 20px auto;
+    padding: 18px;
+    background: #fff1f4;
+    border-radius: 18px;
+    font-size: 18px;
+  }
+
+  .final-place {
+    font-size: 28px;
+    font-weight: bold;
+    margin-top: 20px;
+    padding: 20px;
+    background: #fff1f4;
+    border-radius: 20px;
+  }
+
+  .piece {
+    font-size: 38px;
+    margin: 15px 0;
+  }
+
+  input {
+    padding: 13px 18px;
+    border: 2px solid #ead5dc;
+    border-radius: 999px;
+    text-align: center;
+    font-size: 18px;
+    width: 180px;
+    outline: none;
+  }
+
+  input:focus {
+    border-color: #d96c8a;
+  }
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+  <!-- =================================================
+       PANTALLA DE BLOQUEO
+  ================================================== -->
+
+  <section id="locked">
+
+    <div class="emoji">🔒</div>
+
+    <h1 id="lockedTitle">
+      Todavía no...
+    </h1>
+
+    <p id="lockedText">
+      Esta pequeña sorpresa todavía no está disponible 👀
+    </p>
+
+    <div id="countdown"></div>
+
+    <p class="hint">
+      Vuelve cuando llegue el momento 💌
+    </p>
+
+  </section>
+
+
+  <!-- =================================================
+       CONTENIDO PRINCIPAL
+  ================================================== -->
+
+  <section id="game" class="hidden">
+
+    <div class="emoji" id="emoji">💌</div>
+
+    <h1 id="title"></h1>
+
+    <p id="text"></p>
+
+    <div id="buttons"></div>
+
+    <div id="extra"></div>
+
+    <p class="hint" id="progress"></p>
+
+  </section>
+
+</div>
+
+
+<script>
+
+/*
+=========================================================
+                  FECHAS IMPORTANTES
+=========================================================
+
+Inicio:
+9 de septiembre de 2026
+
+Primera sorpresa:
+sábado 12 de septiembre
+
+Segunda:
+sábado 19 de septiembre
+
+Tercera:
+sábado 26 de septiembre
+
+Cuarta:
+sábado 3 de octubre
+
+Revelación:
+viernes 9 de octubre
+
+Hora: 00:00 de Perú
+=========================================================
+*/
+
+const START_DATE =
+  new Date("2026-09-09T00:00:00-05:00");
+
+const FINAL_DATE =
+  new Date("2026-10-09T00:00:00-05:00");
+
+
+/*
+=========================================================
+                    SORPRESAS
+=========================================================
+*/
+
+const surprises = [
+
+  /*
+  -------------------------------------------------------
+  9 DE SEPTIEMBRE
+  -------------------------------------------------------
+  */
+
+  {
+    date: new Date("2026-09-09T00:00:00-05:00"),
+
+    emoji: "💌",
+
+    title: "Hola...",
+
+    text:
+      "Si llegaste hasta aquí es porque encontraste " +
+      "el lugar secreto. 👀<br><br>" +
+
+      "Pero hay un pequeño problema...<br><br>" +
+
+      "<strong>Todavía no puedes saber qué vamos a hacer.</strong> 🤭<br><br>" +
+
+      "Cada sábado tendrás que volver a entrar. " +
+      "Habrá una pequeña prueba, una pista y quizá... " +
+      "una sorpresa.",
+
+    buttons: [
+      {
+        text: "ACEPTO LA MISIÓN →",
+        correct: true
+      }
+    ],
+
+    success:
+      "Perfecto. 💗<br><br>" +
+
+      "Primera pista desbloqueada el " +
+      "<strong>sábado 12 de septiembre.</strong><br><br>" +
+
+      "<em>No intentes entrar antes... 👀</em>"
+  },
+
+
+  /*
+  -------------------------------------------------------
+  12 DE SEPTIEMBRE
+  -------------------------------------------------------
+  */
+
+  {
+    date: new Date("2026-09-12T00:00:00-05:00"),
+
+    emoji: "🧩",
+
+    title: "¿Cuánto recuerdas?",
+
+    text:
+      "Primera prueba.<br><br>" +
+
+      "Vamos a ver si realmente prestas atención " +
+      "a nuestra historia. 👀<br><br>" +
+
+      "<strong>¿Cuál fue nuestro primer concierto juntos?</strong>",
+
+    buttons: [
+      {
+        text: "Opción A",
+        correct: false
+      },
+
+      {
+        text: "Opción B",
+        correct: true
+      },
+
+      {
+        text: "Opción C",
+        correct: false
+      }
+    ],
+
+    success:
+      "🎉 ¡Correcto!<br><br>" +
+
+      "Parece que sí me prestas atención JAJAJA. 😌<br><br>" +
+
+      "<div class='clue'>" +
+      "🧩 <strong>PISTA #1</strong><br><br>" +
+      "“Lo que estamos preparando empieza mucho " +
+      "antes de que llegues al lugar.”" +
+      "</div><br>" +
+
+      "Pero todavía no tienes suficiente. 🤭<br><br>" +
+
+      "<strong>Vuelve el próximo sábado.</strong>"
+  },
+
+
+  /*
+  -------------------------------------------------------
+  19 DE SEPTIEMBRE
+  -------------------------------------------------------
+  */
+
+  {
+    date: new Date("2026-09-19T00:00:00-05:00"),
+
+    emoji: "🎵",
+
+    title: "Una pista musical...",
+
+    text:
+      "Esta vez necesitas recordar una canción. 🎵<br><br>" +
+
+      "Hay una canción que ya forma parte de nuestra historia.<br><br>" +
+
+      "<strong>¿Cuál es nuestra canción?</strong>",
+
+    buttons: [
+      {
+        text: "Ojos Chinos ❤️",
+        correct: true
+      },
+
+      {
+        text: "Otra canción",
+        correct: false
+      }
+    ],
+
+    success:
+      "🎵 Exacto.<br><br>" +
+
+      "Hay canciones que simplemente son canciones..." +
+      " y hay otras que terminan recordándonos a alguien. ❤️<br><br>" +
+
+      "<div class='clue'>" +
+      "🎵 <strong>PISTA #2</strong><br><br>" +
+      "“Hay un recuerdo que suena incluso cuando " +
+      "la música termina.”" +
+      "</div><br>" +
+
+      "Ya tienes dos pistas.<br>" +
+      "Pero todavía falta bastante. 👀<br><br>" +
+
+      "<strong>Nos vemos el próximo sábado.</strong>"
+  },
+
+
+  /*
+  -------------------------------------------------------
+  26 DE SEPTIEMBRE
+  -------------------------------------------------------
+  */
+
+  {
+    date: new Date("2026-09-26T00:00:00-05:00"),
+
+    emoji: "📸",
+
+    title: "Elige un recuerdo",
+
+    text:
+      "Esta vez tendrás que confiar en tu intuición. 👀<br><br>" +
+
+      "Una de estas opciones esconde la pista correcta.<br><br>" +
+
+      "<strong>¿Cuál eliges?</strong>",
+
+    buttons: [
+      {
+        text: "📸 Recuerdo 1",
+        correct: false
+      },
+
+      {
+        text: "📸 Recuerdo 2",
+        correct: true
+      },
+
+      {
+        text: "📸 Recuerdo 3",
+        correct: false
+      }
+    ],
+
+    success:
+      "👀 ¡Exacto!<br><br>" +
+
+      "Ya deberías estar empezando a sospechar...<br><br>" +
+
+      "<div class='clue'>" +
+      "📸 <strong>PISTA #3</strong><br><br>" +
+      "“A veces lo importante no es el lugar, " +
+      "sino con quién lo compartes.”" +
+      "</div><br>" +
+
+      "Solo queda una prueba.<br><br>" +
+
+      "<strong>Vuelve el sábado 3 de octubre.</strong> 🔐"
+  },
+
+
+  /*
+  -------------------------------------------------------
+  3 DE OCTUBRE
+  -------------------------------------------------------
+  */
+
+  {
+    date: new Date("2026-10-03T00:00:00-05:00"),
+
+    emoji: "🔐",
+
+    title: "Ya casi...",
+
+    text:
+      "Has llegado hasta la última pista. 😭<br><br>" +
+
+      "Pero para desbloquearla necesitas introducir " +
+      "el código correcto.<br><br>" +
+
+      "<strong>¿Cuál crees que es?</strong>",
+
+    codeGame: true,
+
+    success:
+      "🔓 <strong>DESBLOQUEADO</strong><br><br>" +
+
+      "Lo lograste. ❤️<br><br>" +
+
+      "<div class='clue'>" +
+      "🔐 <strong>ÚLTIMA PISTA</strong><br><br>" +
+      "“Todas las pistas te llevaron hasta aquí." +
+      "<br>Ahora solo falta descubrir dónde.”" +
+      "</div><br>" +
+
+      "Ya tienes todas las piezas.<br><br>" +
+
+      "<strong>La respuesta llega el 9 de octubre.</strong> 🎁"
+  }
+
+];
+
+
+/*
+=========================================================
+              CÓDIGO DE LA ÚLTIMA PRUEBA
+=========================================================
+
+CAMBIA ESTE NÚMERO POR EL QUE TÚ QUIERAS.
+
+Ejemplo:
+const SECRET_CODE = "0909";
+
+=========================================================
+*/
+
+const SECRET_CODE = "0909";
+
+
+/*
+=========================================================
+                OBTENER SORPRESA ACTUAL
+=========================================================
+*/
+
+function getCurrentSurprise() {
+
+  const now = new Date();
+
+  let current = surprises[0];
+
+  for (let i = 0; i < surprises.length; i++) {
+
+    if (now >= surprises[i].date) {
+      current = surprises[i];
+    }
+
+  }
+
+  return current;
+}
+
+
+/*
+=========================================================
+                PRÓXIMA SORPRESA
+=========================================================
+*/
+
+function getNextSurprise() {
+
+  const now = new Date();
+
+  for (let i = 0; i < surprises.length; i++) {
+
+    if (surprises[i].date > now) {
+      return surprises[i];
+    }
+
+  }
+
+  return null;
+}
+
+
+/*
+=========================================================
+                    COUNTDOWN
+=========================================================
+*/
+
+function updateCountdown() {
+
+  const now = new Date();
+
+  /*
+  Antes del 9 de septiembre
+  */
+
+  if (now < START_DATE) {
+
+    const distance = START_DATE - now;
+
+    showLockedCountdown(
+      distance,
+      "Todavía no...",
+      "Esta pequeña sorpresa todavía no está disponible 👀"
+    );
+
+    return;
+  }
+
+
+  /*
+  Después del inicio pero antes del 9 de octubre
+  */
+
+  if (now < FINAL_DATE) {
+
+    const next = getNextSurprise();
+
+    if (next) {
+
+      const distance = next.date - now;
+
+      showLockedCountdown(
+        distance,
+        "🔒 Sorpresa bloqueada",
+        "La próxima pista todavía no está disponible."
+      );
+
+      return;
+    }
+
+  }
+
+
+  /*
+  Ya llegó la revelación
+  */
+
+  showGame();
+
+}
+
+
+/*
+=========================================================
+              MOSTRAR CUENTA REGRESIVA
+=========================================================
+*/
+
+function showLockedCountdown(distance, title, text) {
+
+  document.getElementById("locked").classList.remove("hidden");
+
+  document.getElementById("game").classList.add("hidden");
+
+  document.getElementById("lockedTitle").textContent = title;
+
+  document.getElementById("lockedText").textContent = text;
+
+
+  const d =
+    Math.floor(distance / 86400000);
+
+  const h =
+    Math.floor(
+      (distance % 86400000) / 3600000
+    );
+
+  const m =
+    Math.floor(
+      (distance % 3600000) / 60000
+    );
+
+  const s =
+    Math.floor(
+      (distance % 60000) / 1000
+    );
+
+
+  document.getElementById("countdown").textContent =
+    `${d}d ${h}h ${m}m ${s}s`;
+}
+
+
+/*
+=========================================================
+                    MOSTRAR JUEGO
+=========================================================
+*/
+
+function showGame() {
+
+  const now = new Date();
+
+
+  /*
+  -----------------------------------------------
+  REVELACIÓN FINAL
+  -----------------------------------------------
+  */
+
+  if (now >= FINAL_DATE) {
+
+    document.getElementById("locked").classList.add("hidden");
+
+    document.getElementById("game").classList.remove("hidden");
+
+    document.getElementById("emoji").textContent = "🎁";
+
+    document.getElementById("title").textContent =
+      "AHORA SÍ ❤️";
+
+    document.getElementById("text").innerHTML =
+      "Has esperado hasta el final.<br><br>" +
+
+      "Has resuelto las pistas.<br>" +
+      "Has recordado nuestros momentos.<br>" +
+      "Y finalmente llegó el día. 🥹<br><br>" +
+
+      "<strong>¿Estás listo para descubrirlo?</strong>";
+
+    document.getElementById("buttons").innerHTML = "";
+
+    const btn =
+      document.createElement("button");
+
+    btn.textContent =
+      "DESCUBRIR LA SORPRESA 😭";
+
+    btn.onclick = revealFinal;
+
+    document.getElementById("buttons").appendChild(btn);
+
+    document.getElementById("extra").innerHTML = "";
+
+    document.getElementById("progress").textContent =
+      "💌 9 de octubre — Fin de la misión";
+
+    return;
+  }
+
+
+  /*
+  -----------------------------------------------
+  SORPRESA ACTUAL
+  -----------------------------------------------
+  */
+
+  const surprise = getCurrentSurprise();
+
+  document.getElementById("locked").classList.add("hidden");
+
+  document.getElementById("game").classList.remove("hidden");
+
+  document.getElementById("emoji").textContent =
+    surprise.emoji;
+
+  document.getElementById("title").textContent =
+    surprise.title;
+
+  document.getElementById("text").innerHTML =
+    surprise.text;
+
+
+  document.getElementById("buttons").innerHTML = "";
+
+  document.getElementById("extra").innerHTML = "";
+
+
+  /*
+  -----------------------------------------------
+  JUEGO DEL CÓDIGO
+  -----------------------------------------------
+  */
+
+  if (surprise.codeGame) {
+
+    const input =
+      document.createElement("input");
+
+    input.type = "text";
+    input.placeholder = "Código";
+    input.maxLength = 10;
+
+    const button =
+      document.createElement("button");
+
+    button.textContent =
+      "DESBLOQUEAR 🔓";
+
+
+    button.onclick = function() {
+
+      if (input.value.trim() === SECRET_CODE) {
+
+        document.getElementById("text").innerHTML =
+          surprise.success;
+
+        document.getElementById("buttons").innerHTML = "";
+
+        document.getElementById("extra").innerHTML = "";
+
+      } else {
+
+        document.getElementById("extra").innerHTML =
+          "<p>❌ Mmm... ese no parece ser.</p>";
+
+      }
+
+    };
+
+
+    document.getElementById("buttons").appendChild(input);
+
+    document.getElementById("buttons").appendChild(button);
+
+  }
+
+
+  /*
+  -----------------------------------------------
+  BOTONES NORMALES
+  -----------------------------------------------
+  */
+
+  else {
+
+    surprise.buttons.forEach(option => {
+
+      const btn =
+        document.createElement("button");
+
+      btn.textContent =
+        option.text;
+
+
+      btn.onclick = function() {
+
+        if (option.correct) {
+
+          document.getElementById("text").innerHTML =
+            surprise.success;
+
+          document.getElementById("buttons").innerHTML = "";
+
+        } else {
+
+          document.getElementById("text").innerHTML =
+            "JAJAJA NO 😭<br><br>" +
+            "Intenta otra vez.";
+
+        }
+
+      };
+
+
+      document.getElementById("buttons").appendChild(btn);
+
+    });
+
+  }
+
+
+  /*
+  -----------------------------------------------
+  PROGRESO
+  -----------------------------------------------
+  */
+
+  const index =
+    surprises.indexOf(surprise);
+
+  document.getElementById("progress").textContent =
+    `Pista ${index + 1} de ${surprises.length} 💌`;
+
+}
+
+
+/*
+=========================================================
+                REVELACIÓN FINAL
+=========================================================
+*/
+
+function revealFinal() {
+
+  document.getElementById("emoji").textContent =
+    "📍";
+
+  document.getElementById("title").textContent =
+    "NUESTRA SORPRESA ❤️";
+
+
+  document.getElementById("text").innerHTML =
+    "Bueno... 🤭<br><br>" +
+
+    "Creo que ya sufriste suficiente esperando.<br><br>" +
+
+    "<strong>Así que aquí está:</strong>";
+
+
+  document.getElementById("buttons").innerHTML = "";
+
+
+  /*
+  =====================================================
+  CAMBIA AQUÍ EL LUGAR DE LA SORPRESA
+  =====================================================
+  */
+
+  document.getElementById("extra").innerHTML =
+
+    "<div class='final-place'>" +
+
+    "📍 LUGAR SORPRESA" +
+
+    "</div>" +
+
+    "<p style='margin-top:25px'>" +
+
+    "Nos vemos ahí. ❤️<br><br>" +
+
+    "<strong>Feliz primer mes. 🥹💗</strong>" +
+
+    "</p>";
+
+
+  document.getElementById("progress").textContent =
+    "💌 Misión completada";
+}
+
+
+/*
+=========================================================
+                 INICIAR PÁGINA
+=========================================================
+*/
+
+updateCountdown();
+
+setInterval(updateCountdown, 1000);
+
+</script>
+
+</body>
+</html>
+```
