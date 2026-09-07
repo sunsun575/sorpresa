@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Una pequeña sorpresa 💌</title>
 
 <style>
@@ -25,9 +26,10 @@ body {
 /* =========================
       CONTENEDOR
 ========================= */
+
 .card {
   width: min(92vw, 620px);
-  background: rgba(255,255,255,.95);
+  background: rgba(255,255,255,.96);
   border-radius: 30px;
   padding: 35px 28px;
   box-shadow: 0 20px 60px rgba(100,50,70,.15);
@@ -40,6 +42,7 @@ body {
     opacity: 0;
     transform: translateY(10px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -53,6 +56,7 @@ body {
 /* =========================
         TEXTOS
 ========================= */
+
 .emoji {
   font-size: 52px;
   margin-bottom: 10px;
@@ -75,7 +79,9 @@ p {
 /* =========================
         BOTONES
 ========================= */
-button, .back-button {
+
+button,
+.back-button {
   border: none;
   border-radius: 999px;
   padding: 13px 22px;
@@ -85,9 +91,11 @@ button, .back-button {
   font-size: 16px;
   cursor: pointer;
   transition: .2s ease;
+  font-family: inherit;
 }
 
-button:hover, .back-button:hover {
+button:hover,
+.back-button:hover {
   transform: translateY(-2px);
   box-shadow: 0 7px 18px rgba(100,50,70,.15);
 }
@@ -106,6 +114,7 @@ button:hover, .back-button:hover {
 /* =========================
         MENÚ
 ========================= */
+
 .menu {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -120,6 +129,7 @@ button:hover, .back-button:hover {
   cursor: pointer;
   transition: .2s ease;
   font-size: 16px;
+  user-select: none;
 }
 
 .menu-item:hover {
@@ -141,6 +151,7 @@ button:hover, .back-button:hover {
 /* =========================
         CONTADOR
 ========================= */
+
 .countdown-box {
   margin: 25px 0;
   padding: 18px;
@@ -153,7 +164,8 @@ button:hover, .back-button:hover {
   opacity: .75;
 }
 
-#countdown {
+#countdown,
+#finalCountdown {
   font-size: 27px;
   font-weight: bold;
   margin-top: 8px;
@@ -162,6 +174,7 @@ button:hover, .back-button:hover {
 /* =========================
         PISTAS
 ========================= */
+
 .clue {
   margin: 20px 0;
   padding: 20px;
@@ -179,6 +192,10 @@ button:hover, .back-button:hover {
   margin-top: 8px;
 }
 
+/* =========================
+        PIEZAS
+========================= */
+
 .pieces {
   display: flex;
   justify-content: center;
@@ -195,15 +212,18 @@ button:hover, .back-button:hover {
   align-items: center;
   justify-content: center;
   font-size: 23px;
+  transition: .3s ease;
 }
 
 .piece.unlocked {
   background: #f6cbd6;
+  transform: scale(1.05);
 }
 
 /* =========================
         INPUT
 ========================= */
+
 input {
   width: 180px;
   padding: 13px;
@@ -212,6 +232,7 @@ input {
   font-size: 17px;
   text-align: center;
   outline: none;
+  font-family: inherit;
 }
 
 input:focus {
@@ -221,6 +242,7 @@ input:focus {
 /* =========================
         FOTOS
 ========================= */
+
 .photo-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -228,26 +250,38 @@ input:focus {
   margin: 20px 0;
 }
 
+/*
+  Todas las fotos tendrán exactamente
+  el mismo tamaño.
+*/
 .photo {
-  height: 180px;
+  width: 100%;
+  aspect-ratio: 4 / 5;
   border-radius: 16px;
   overflow: hidden;
   position: relative;
   cursor: pointer;
   background: #f3e4e8;
-  transition: transform .2s ease;
+  transition: transform .2s ease, box-shadow .2s ease;
 }
 
 .photo:hover {
   transform: scale(1.02);
+  box-shadow: 0 8px 20px rgba(100,50,70,.12);
 }
 
 .photo img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
   display: block;
 }
+
+/*
+  Cubierta que tapa la fotografía
+  hasta que se toca.
+*/
 
 .photo-cover {
   position: absolute;
@@ -276,6 +310,7 @@ input:focus {
 /* =========================
         FINAL
 ========================= */
+
 .final-place {
   margin: 25px 0;
   padding: 25px;
@@ -294,6 +329,12 @@ input:focus {
   border-radius: 999px;
   font-size: 17px;
   margin-top: 10px;
+  transition: .2s ease;
+}
+
+.maps-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 7px 18px rgba(100,50,70,.15);
 }
 
 .small {
@@ -302,17 +343,120 @@ input:focus {
 }
 
 /* =========================
-        RESPONSIVE
+      MENSAJE FINAL
 ========================= */
-@media(max-width: 500px) {
+
+.final-message {
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 20px;
+  background: #fff1f4;
+}
+
+/* =========================
+      RESPONSIVE
+========================= */
+
+@media (max-width: 600px) {
+
+  body {
+    padding: 12px;
+    align-items: flex-start;
+  }
+
+  .card {
+    width: 100%;
+    margin: 10px 0;
+    padding: 28px 18px;
+    border-radius: 25px;
+  }
+
+  h1 {
+    font-size: 26px;
+  }
+
+  p {
+    font-size: 16px;
+  }
+
+  .emoji {
+    font-size: 45px;
+  }
+
   .menu {
     grid-template-columns: 1fr 1fr;
+    gap: 10px;
   }
+
+  .menu-item {
+    padding: 16px 8px;
+    font-size: 14px;
+  }
+
+  .menu-icon {
+    font-size: 27px;
+  }
+
+  /*
+    Las fotos siguen siendo 3 juntas,
+    pero un poco más compactas.
+  */
+
   .photo-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 7px;
   }
+
   .photo {
-    height: 140px;
+    aspect-ratio: 4 / 5;
+    border-radius: 12px;
+  }
+
+  .photo-cover {
+    font-size: 24px;
+  }
+
+  .photo-cover span {
+    font-size: 11px;
+  }
+
+  .pieces {
+    gap: 6px;
+  }
+
+  .piece {
+    width: 42px;
+    height: 42px;
+  }
+
+  button {
+    font-size: 15px;
+    padding: 12px 19px;
+  }
+}
+
+/*
+  En celulares muy pequeños,
+  hacemos las fotos un poquito más grandes
+  para que sigan siendo fáciles de tocar.
+*/
+
+@media (max-width: 380px) {
+
+  .photo-grid {
+    gap: 6px;
+  }
+
+  .photo {
+    border-radius: 10px;
+  }
+
+  .photo-cover {
+    font-size: 21px;
+  }
+
+  .photo-cover span {
+    font-size: 10px;
   }
 }
 </style>
@@ -322,376 +466,1193 @@ input:focus {
 
 <div class="card">
 
-<!-- INICIO -->
+<!-- =========================
+        INICIO
+========================= -->
+
 <section id="home">
+
   <div class="emoji">💌</div>
+
   <h1>Holitas, tengo algo preparado para ti...</h1>
+
   <p>
-    Si llegaste hasta aquí, significa que abriste el sobre de sorpresa y escaneaste el QR 👀
+    Si llegaste hasta aquí, significa que abriste el sobre de sorpresa
+    y escaneaste el QR 👀
     <br><br>
+
     Hay varias cosas escondidas en esta pequeña página.
     <br><br>
+
     Puedes explorarlas, descubrir pistas y recordar algunas cosas de nosotros.
   </p>
 
   <div class="countdown-box">
-    <div class="countdown-title">🎁 Nuestro 2do mes</div>
-    <div>9 de octubre · 6:00 p. m.</div>
-    <div id="countdown">Calculando...</div>
+
+    <div class="countdown-title">
+      🎁 Nuestro 2do mes
+    </div>
+
+    <div>
+      9 de octubre · 6:00 p. m.
+    </div>
+
+    <div id="countdown">
+      Calculando...
+    </div>
+
   </div>
 
-  <button onclick="openMenu()">COMENZAR 💗</button>
-  <p class="small">Hay una última cosa que todavía no puedes abrir... 🔒</p>
+  <button onclick="openMenu()">
+    COMENZAR 💗
+  </button>
+
+  <p class="small">
+    Hay una última cosa que todavía no puedes abrir... 🔒
+  </p>
+
 </section>
 
-<!-- MENÚ -->
+
+<!-- =========================
+        MENÚ
+========================= -->
+
 <section id="menu" class="hidden">
+
   <div class="emoji">🗺️</div>
+
   <h1>Tu misión</h1>
-  <p>Explora las diferentes partes de nuestra historia.<br>Algunas esconden pistas. 👀</p>
+
+  <p>
+    Explora las diferentes partes de nuestra historia.
+    <br>
+    Algunas esconden pistas. 👀
+  </p>
 
   <div class="pieces">
-    <div class="piece" id="piece1">🔒</div>
-    <div class="piece" id="piece2">🔒</div>
-    <div class="piece" id="piece3">🔒</div>
-    <div class="piece" id="piece4">🔒</div>
+
+    <div class="piece" id="piece1">
+      🔒
+    </div>
+
+    <div class="piece" id="piece2">
+      🔒
+    </div>
+
+    <div class="piece" id="piece3">
+      🔒
+    </div>
+
+    <div class="piece" id="piece4">
+      🔒
+    </div>
+
   </div>
+
 
   <div class="menu">
-    <div class="menu-item" onclick="showPage('invitation')">
-      <span class="menu-icon">💌</span> La invitación
+
+    <div class="menu-item"
+         onclick="showPage('invitation')">
+
+      <span class="menu-icon">💌</span>
+      La invitación
+
     </div>
-    <div class="menu-item" onclick="showPage('memory')">
-      <span class="menu-icon">🧩</span> ¿Cuánto recuerdas?
+
+
+    <div class="menu-item"
+         onclick="showPage('memory')">
+
+      <span class="menu-icon">🧩</span>
+      ¿Cuánto recuerdas?
+
     </div>
-    <div class="menu-item" onclick="showPage('music')">
-      <span class="menu-icon">🎵</span> Una canción
+
+
+    <div class="menu-item"
+         onclick="showPage('music')">
+
+      <span class="menu-icon">🎵</span>
+      Una canción
+
     </div>
-    <div class="menu-item" onclick="showPage('photos')">
-      <span class="menu-icon">📸</span> Un recuerdo
+
+
+    <div class="menu-item"
+         onclick="showPage('photos')">
+
+      <span class="menu-icon">📸</span>
+      Un recuerdo
+
     </div>
-    <div class="menu-item locked" onclick="showPage('finalClue')">
-      <span class="menu-icon">🔐</span> Última pista
+
+
+    <div class="menu-item locked"
+         onclick="showPage('finalClue')">
+
+      <span class="menu-icon">🔐</span>
+      Última pista
+
     </div>
-    <div class="menu-item locked" onclick="showPage('reveal')">
-      <span class="menu-icon">🎁</span> La sorpresa
+
+
+    <div class="menu-item locked"
+         onclick="showPage('reveal')">
+
+      <span class="menu-icon">🎁</span>
+      La sorpresa
+
     </div>
+
   </div>
 
   <br>
-  <button class="secondary" onclick="goHome()">← Volver</button>
+
+  <button class="secondary"
+          onclick="goHome()">
+
+    ← Volver
+
+  </button>
+
 </section>
 
-<!-- INVITACIÓN -->
+
+<!-- =========================
+        INVITACIÓN
+========================= -->
+
 <section id="invitation" class="hidden">
+
   <div class="emoji">💌</div>
+
   <h1>La invitación</h1>
+
   <p>
-    Bueno...<br><br>
-    No podía simplemente decirte que tengo una sorpresa.<br><br>
-    Tenías que descubrirla poquito a poquito. 🤭<br><br>
+
+    Bueno...
+    <br><br>
+
+    No podía simplemente decirte que tengo una sorpresa.
+    <br><br>
+
+    Tenías que descubrirla poquito a poquito. 🤭
+    <br><br>
+
     Así que preparé esto especialmente para ti.
+
   </p>
+
 
   <div class="clue">
-    <div class="clue-number">PRIMERA PISTA - INVITACIÓN</div>
-    <div class="clue-text">
-      📅 Viernes 9 de octubre<br>
-      ⏰ Hora: 6 pm<br>
-      💌 Lugar: Descúbrelo<br><br>
-      No hagas reservas. Esta vez yo me encargo 🫶
+
+    <div class="clue-number">
+      PRIMERA PISTA - INVITACIÓN
     </div>
+
+    <div class="clue-text">
+
+      📅 Viernes 9 de octubre
+      <br>
+
+      ⏰ Hora: 6 pm
+      <br>
+
+      💌 Lugar: Descúbrelo
+      <br><br>
+
+      No hagas reservas.
+      Esta vez yo me encargo 🫶
+
+    </div>
+
   </div>
 
-  <button onclick="unlockPiece(1); backToMenu()">GUARDAR PISTA 🧩</button>
+
+  <button onclick="unlockPiece(1); backToMenu()">
+    GUARDAR PISTA 🧩
+  </button>
+
 </section>
 
-<!-- MEMORIA -->
+
+<!-- =========================
+        MEMORIA
+========================= -->
+
 <section id="memory" class="hidden">
+
   <div class="emoji">🧩</div>
+
   <h1>¿Cuánto recuerdas?</h1>
-  <p>Primera pregunta:<br><br><strong>¿Cuál fue nuestro primer concierto juntos?</strong></p>
 
-  <div id="memoryButtons">
-    <button onclick="memoryAnswer('los4')">Los 4</button>
-    <button onclick="memoryAnswer('caribenos')">Caribeños</button>
-    <button onclick="memoryAnswer('armonia')">Armonía 10</button>
-  </div>
-
-  <div id="memoryResult"></div>
-  <br>
-  <button class="secondary" onclick="backToMenu()">← Volver</button>
-</section>
-
-<!-- MÚSICA -->
-<section id="music" class="hidden">
-  <div class="emoji">🎵</div>
-  <h1>Una canción...</h1>
   <p>
-    Hay canciones que simplemente son canciones.<br><br>
-    Y hay otras que terminan convirtiéndose en recuerdos. ❤️<br><br>
-    <strong>¿Cuál es nuestra canción?</strong>
+
+    Primera pregunta:
+    <br><br>
+
+    <strong>
+      ¿Cuál fue nuestro primer concierto juntos?
+    </strong>
+
   </p>
 
-  <div id="musicButtons">
-    <button onclick="musicAnswer(true)">Ojos chinos</button>
-    <button onclick="musicAnswer(false)">Historia de amor</button>
-    <button onclick="musicAnswer(false)">Otra canción</button>
+
+  <div id="memoryButtons">
+
+    <button onclick="memoryAnswer('los4')">
+      Los 4
+    </button>
+
+    <button onclick="memoryAnswer('caribenos')">
+      Caribeños
+    </button>
+
+    <button onclick="memoryAnswer('armonia')">
+      Armonía 10
+    </button>
+
   </div>
+
+
+  <div id="memoryResult"></div>
+
+  <br>
+
+  <button class="secondary"
+          onclick="backToMenu()">
+
+    ← Volver
+
+  </button>
+
+</section>
+
+
+<!-- =========================
+        MÚSICA
+========================= -->
+
+<section id="music" class="hidden">
+
+  <div class="emoji">🎵</div>
+
+  <h1>Una canción...</h1>
+
+  <p>
+
+    Hay canciones que simplemente son canciones.
+    <br><br>
+
+    Y hay otras que terminan convirtiéndose en recuerdos. ❤️
+    <br><br>
+
+    <strong>
+      ¿Cuál es nuestra canción?
+    </strong>
+
+  </p>
+
+
+  <div id="musicButtons">
+
+    <button onclick="musicAnswer(true)">
+      Ojos chinos
+    </button>
+
+    <button onclick="musicAnswer(false)">
+      Historia de amor
+    </button>
+
+    <button onclick="musicAnswer(false)">
+      Otra canción
+    </button>
+
+  </div>
+
 
   <div id="musicResult"></div>
+
   <br>
-  <button class="secondary" onclick="backToMenu()">← Volver</button>
+
+  <button class="secondary"
+          onclick="backToMenu()">
+
+    ← Volver
+
+  </button>
+
 </section>
 
-<!-- FOTOS -->
+
+<!-- =========================
+        FOTOS
+========================= -->
+
 <section id="photos" class="hidden">
+
   <div class="emoji">📸</div>
+
   <h1>Un pequeño recuerdo</h1>
-  <p>Una de estas opciones esconde otra pista.<br>Confía en tu intuición. 👀</p>
+
+  <p>
+
+    Una de estas opciones esconde otra pista.
+    <br>
+
+    Confía en tu intuición. 👀
+
+  </p>
+
 
   <div class="photo-grid">
-    <div class="photo" onclick="answerPhoto(1)">
-      <img src="foto1.jpeg" alt="Foto 1">
-      <div class="photo-cover">💌 <span>Descubrir</span></div>
+
+    <div class="photo"
+         onclick="answerPhoto(1)">
+
+      <img src="foto1.jpeg"
+           alt="Foto 1">
+
+      <div class="photo-cover">
+
+        💌
+
+        <span>
+          Descubrir
+        </span>
+
+      </div>
+
     </div>
-    <div class="photo" onclick="answerPhoto(2)">
-      <img src="foto2.jpeg" alt="Foto 2">
-      <div class="photo-cover">💌 <span>Descubrir</span></div>
+
+
+    <div class="photo"
+         onclick="answerPhoto(2)">
+
+      <img src="foto2.jpeg"
+           alt="Foto 2">
+
+      <div class="photo-cover">
+
+        💌
+
+        <span>
+          Descubrir
+        </span>
+
+      </div>
+
     </div>
-    <div class="photo" onclick="answerPhoto(3)">
-      <img src="foto3.jpeg" alt="Foto 3">
-      <div class="photo-cover">💌 <span>Descubrir</span></div>
+
+
+    <div class="photo"
+         onclick="answerPhoto(3)">
+
+      <img src="foto3.jpeg"
+           alt="Foto 3">
+
+      <div class="photo-cover">
+
+        💌
+
+        <span>
+          Descubrir
+        </span>
+
+      </div>
+
     </div>
+
   </div>
+
 
   <div id="photoResult"></div>
+
   <br>
-  <button class="secondary" onclick="backToMenu()">← Volver</button>
+
+  <button class="secondary"
+          onclick="backToMenu()">
+
+    ← Volver
+
+  </button>
+
 </section>
 
-<!-- ÚLTIMA PISTA -->
-<section id="finalClue" class="hidden">
-  <div class="emoji">🔐</div>
-  <h1>Ya casi...</h1>
-  <p>Has encontrado todas las pistas anteriores.<br><br>Pero hay una última cosa que necesitas descubrir.<br><br>Introduce el código, confía en tu intuición</p>
 
-  <input id="secretInput" type="text" placeholder="Código"><br>
-  <button onclick="checkCode()">DESBLOQUEAR 🔓</button>
+<!-- =========================
+        ÚLTIMA PISTA
+========================= -->
+
+<section id="finalClue" class="hidden">
+
+  <div class="emoji">🔐</div>
+
+  <h1>Ya casi...</h1>
+
+  <p>
+
+    Has encontrado todas las pistas anteriores.
+    <br><br>
+
+    Pero hay una última cosa que necesitas descubrir.
+    <br><br>
+
+    Introduce el código, confía en tu intuición. 👀
+
+  </p>
+
+
+  <input
+    id="secretInput"
+    type="text"
+    placeholder="Código"
+    autocomplete="off"
+  >
+
+  <br>
+
+
+  <button onclick="checkCode()">
+    DESBLOQUEAR 🔓
+  </button>
+
 
   <div id="codeResult"></div>
+
   <br>
-  <button class="secondary" onclick="backToMenu()">← Volver</button>
+
+
+  <button class="secondary"
+          onclick="backToMenu()">
+
+    ← Volver
+
+  </button>
+
 </section>
 
-<!-- REVELACIÓN -->
+
+<!-- =========================
+        REVELACIÓN
+========================= -->
+
 <section id="reveal" class="hidden">
+
   <div class="emoji">🎁</div>
+
   <h1>La gran sorpresa</h1>
-  <p>Bueno...<br><br>Después de todas estas pistas, creo que ya estás listo.<br><br>Pero todavía tienes que esperar hasta el momento indicado. 👀</p>
+
+  <p>
+
+    Bueno...
+    <br><br>
+
+    Después de todas estas pistas,
+    creo que ya estás listo.
+    <br><br>
+
+    Pero todavía tienes que esperar
+    hasta el momento indicado. 👀
+
+  </p>
+
 
   <div class="countdown-box">
-    <div class="countdown-title">🔒 SE DESBLOQUEA</div>
-    <strong>9 de octubre · 6:00 p. m.</strong>
-    <div id="finalCountdown">Calculando...</div>
+
+    <div class="countdown-title">
+      🔒 SE DESBLOQUEA
+    </div>
+
+    <strong>
+      9 de octubre · 6:00 p. m.
+    </strong>
+
+    <div id="finalCountdown">
+      Calculando...
+    </div>
+
   </div>
 
+
   <div id="finalButton"></div>
+
   <br>
-  <button class="secondary" onclick="backToMenu()">← Volver</button>
+
+
+  <button class="secondary"
+          onclick="backToMenu()">
+
+    ← Volver
+
+  </button>
+
 </section>
 
 </div>
 
+
 <script>
-const START_DATE = new Date("2026-09-09T00:00:00-05:00");
-const REVEAL_DATE = new Date("2026-10-09T18:00:00-05:00");
+
+/* =====================================================
+        CONFIGURACIÓN
+===================================================== */
+
+/*
+  Fecha en la que empieza la experiencia.
+*/
+const START_DATE =
+  new Date("2026-09-06T00:00:00-05:00");
+
+
+/*
+  ESTE es el momento exacto en que aparecerá
+  el lugar y el botón de Google Maps.
+*/
+const REVEAL_DATE =
+  new Date("2026-10-09T18:00:00-05:00");
+
+
+/*
+  Código para la última pista.
+*/
 const SECRET_CODE = "1101";
+
+
+/*
+  Nombre que aparecerá al final.
+*/
 const PLACE_NAME = "LUGAR SORPRESA";
-const MAPS_LINK = "https://www.google.com/maps";
+
+
+/*
+  IMPORTANTE:
+  Reemplaza este enlace por el enlace REAL
+  de Google Maps de tu lugar.
+*/
+const MAPS_LINK =
+  "https://www.google.com/maps";
+
+
+/* =====================================================
+        PROGRESO
+===================================================== */
 
 let piece1Unlocked = false;
 let piece2Unlocked = false;
 let piece3Unlocked = false;
 let piece4Unlocked = false;
 
+
+/* =====================================================
+        NAVEGACIÓN
+===================================================== */
+
 function hideAll() {
-  const sections = document.querySelectorAll("section");
-  sections.forEach(section => section.classList.add("hidden"));
+
+  const sections =
+    document.querySelectorAll("section");
+
+  sections.forEach(section => {
+    section.classList.add("hidden");
+  });
+
 }
+
 
 function openMenu() {
+
   hideAll();
-  document.getElementById("menu").classList.remove("hidden");
+
+  document
+    .getElementById("menu")
+    .classList.remove("hidden");
+
 }
+
 
 function goHome() {
+
   hideAll();
-  document.getElementById("home").classList.remove("hidden");
+
+  document
+    .getElementById("home")
+    .classList.remove("hidden");
+
 }
+
 
 function backToMenu() {
+
   hideAll();
-  document.getElementById("menu").classList.remove("hidden");
+
+  document
+    .getElementById("menu")
+    .classList.remove("hidden");
+
 }
+
+
+/* =====================================================
+        ABRIR SECCIONES
+===================================================== */
 
 function showPage(id) {
+
+  /*
+    La última pista solamente aparece
+    después de conseguir las 4 piezas.
+  */
+
   if (id === "finalClue" && !piece4Unlocked) {
-    alert("🔒 Todavía no puedes abrir esta parte. Completa las anteriores");
+
+    alert(
+      "🔒 Todavía no puedes abrir esta parte.\n\nCompleta las pistas anteriores."
+    );
+
     return;
   }
-  if (id === "reveal" && new Date() < REVEAL_DATE) {
-    alert("🔒 Todavía no es el momento...");
-    return;
-  }
+
+
+  /*
+    La sorpresa se puede abrir desde el menú,
+    pero el lugar permanece bloqueado hasta
+    el 9 de octubre a las 6:00 p. m.
+  */
+
   hideAll();
-  document.getElementById(id).classList.remove("hidden");
+
+  document
+    .getElementById(id)
+    .classList.remove("hidden");
+
+
+  /*
+    Actualizamos inmediatamente el contador
+    cuando entra a la sección final.
+  */
+
+  if (id === "reveal") {
+    updateCountdown();
+  }
+
 }
+
+
+/* =====================================================
+        DESBLOQUEAR PIEZAS
+===================================================== */
 
 function unlockPiece(number) {
+
   if (number === 1) {
+
     piece1Unlocked = true;
-    document.getElementById("piece1").textContent = "🧩";
-    document.getElementById("piece1").classList.add("unlocked");
+
+    document.getElementById("piece1")
+      .textContent = "🧩";
+
+    document.getElementById("piece1")
+      .classList.add("unlocked");
+
   }
+
+
   if (number === 2) {
+
     piece2Unlocked = true;
-    document.getElementById("piece2").textContent = "🧩";
-    document.getElementById("piece2").classList.add("unlocked");
+
+    document.getElementById("piece2")
+      .textContent = "🧩";
+
+    document.getElementById("piece2")
+      .classList.add("unlocked");
+
   }
+
+
   if (number === 3) {
+
     piece3Unlocked = true;
-    document.getElementById("piece3").textContent = "🧩";
-    document.getElementById("piece3").classList.add("unlocked");
+
+    document.getElementById("piece3")
+      .textContent = "🧩";
+
+    document.getElementById("piece3")
+      .classList.add("unlocked");
+
   }
+
+
   if (number === 4) {
+
     piece4Unlocked = true;
-    document.getElementById("piece4").textContent = "🔓";
-    document.getElementById("piece4").classList.add("unlocked");
+
+    document.getElementById("piece4")
+      .textContent = "🔓";
+
+    document.getElementById("piece4")
+      .classList.add("unlocked");
+
   }
+
 }
+
+
+/* =====================================================
+        PREGUNTA DE MEMORIA
+===================================================== */
 
 function memoryAnswer(option) {
-  const result = document.getElementById("memoryResult");
 
-  if (option === 'caribenos') {
+  const result =
+    document.getElementById("memoryResult");
+
+
+  if (option === "caribenos") {
+
     result.innerHTML = `
-      <div class='clue'>
-        🎉 ¡Correcto!<br><br>Un día después de la celebración de mi cumple 😌<br><br>
-        <strong>PISTA #2</strong><br><br>Hay recuerdos de las primeras veces que son importantes para nosotros
+
+      <div class="clue">
+
+        🎉 ¡Correcto!
+
+        <br><br>
+
+        Un día después de la celebración
+        de mi cumple 😌
+
+        <br><br>
+
+        <strong>PISTA #2</strong>
+
+        <br><br>
+
+        Hay recuerdos de las primeras veces
+        que son importantes para nosotros.
+
       </div>
-      <button onclick='unlockPiece(2); backToMenu()'>GUARDAR PISTA 🧩</button>
+
+
+      <button onclick="unlockPiece(2); backToMenu()">
+
+        GUARDAR PISTA 🧩
+
+      </button>
+
     `;
-  } else if (option === 'los4') {
-    result.innerHTML = `
-      <p>
-        Esa fue mucho después de la primera 🤭<br>
-        Intenta otra vez.
-      </p>
-    `;
-  } else if (option === 'armonia') {
-    result.innerHTML = `
-      <p>
-        ¡Casi! Acuérdate de que cuando llegamos, primero escuchamos a los Caribeños y luego a Armonía 👀<br>
-        Intenta otra vez.
-      </p>
-    `;
+
   }
+
+
+  else if (option === "los4") {
+
+    result.innerHTML = `
+
+      <p>
+
+        Esa fue mucho después de la primera 🤭
+
+        <br>
+
+        Intenta otra vez.
+
+      </p>
+
+    `;
+
+  }
+
+
+  else if (option === "armonia") {
+
+    result.innerHTML = `
+
+      <p>
+
+        ¡Casi!
+
+        Acuérdate de que cuando llegamos,
+        primero escuchamos a los Caribeños
+        y luego a Armonía 👀
+
+        <br>
+
+        Intenta otra vez.
+
+      </p>
+
+    `;
+
+  }
+
 }
+
+
+/* =====================================================
+        MÚSICA
+===================================================== */
 
 function musicAnswer(correct) {
-  const result = document.getElementById("musicResult");
+
+  const result =
+    document.getElementById("musicResult");
+
+
   if (correct) {
+
     result.innerHTML = `
-      <div class='clue'>
-        🎵 Exacto.<br><br>Nuestra canción. ❤️<br><br>
-        <strong>PISTA #3</strong><br><br>Hay canciones que terminan iniciando historias.
+
+      <div class="clue">
+
+        🎵 Exacto.
+
+        <br><br>
+
+        Nuestra canción. ❤️
+
+        <br><br>
+
+        <strong>PISTA #3</strong>
+
+        <br><br>
+
+        Hay canciones que terminan
+        iniciando historias.
+
       </div>
-      <button onclick='unlockPiece(3); backToMenu()'>GUARDAR PISTA 🧩</button>
+
+
+      <button onclick="unlockPiece(3); backToMenu()">
+
+        GUARDAR PISTA 🧩
+
+      </button>
+
     `;
-  } else {
-    result.innerHTML = "<p>Mmm... esa no era 👀<br>Intenta otra vez.</p>";
+
   }
+
+
+  else {
+
+    result.innerHTML = `
+
+      <p>
+
+        Mmm... esa no era 👀
+
+        <br>
+
+        Intenta otra vez.
+
+      </p>
+
+    `;
+
+  }
+
 }
+
+
+/* =====================================================
+        FOTOS
+===================================================== */
 
 function answerPhoto(number) {
-  const photos = document.querySelectorAll('.photo');
-  const selectedPhoto = photos[number - 1];
-  
+
+  const photos =
+    document.querySelectorAll(".photo");
+
+
+  const selectedPhoto =
+    photos[number - 1];
+
+
   if (selectedPhoto) {
-    selectedPhoto.classList.add('revealed');
+
+    selectedPhoto.classList.add("revealed");
+
   }
 
-  const result = document.getElementById('photoResult');
+
+  const result =
+    document.getElementById("photoResult");
+
+
+  /*
+    FOTO 1 = CORRECTA
+  */
 
   if (number === 1) {
+
     result.innerHTML = `
+
       <div class="clue">
-        📸 ¡Correcto! 💗<br><br>
-        <strong>PISTA #4</strong><br><br>
-        Esta foto guarda un recuerdo demasiado importante contigo. 
+
+        📸 ¡Correcto! 💗
+
+        <br><br>
+
+        <strong>PISTA #4</strong>
+
+        <br><br>
+
+        Esta foto guarda un recuerdo
+        demasiado importante contigo.
+
       </div>
-      <button onclick="unlockPiece(4); backToMenu()">GUARDAR PISTA 🧩</button>
+
+
+      <button onclick="unlockPiece(4); backToMenu()">
+
+        GUARDAR PISTA 🧩
+
+      </button>
+
     `;
-  } else {
-    result.innerHTML = "<p>Mmm… esa no era 😌<br>Intenta otra vez.</p>";
+
   }
+
+
+  else {
+
+    result.innerHTML = `
+
+      <p>
+
+        Mmm… esa no era 😌
+
+        <br>
+
+        Intenta otra vez.
+
+      </p>
+
+    `;
+
+  }
+
 }
+
+
+/* =====================================================
+        CÓDIGO FINAL
+===================================================== */
 
 function checkCode() {
-  const input = document.getElementById("secretInput").value.trim();
-  const result = document.getElementById("codeResult");
+
+  const input =
+    document
+      .getElementById("secretInput")
+      .value
+      .trim();
+
+
+  const result =
+    document.getElementById("codeResult");
+
 
   if (input === SECRET_CODE) {
+
     result.innerHTML = `
-      <div class='clue'>
-        🔓 <strong>DESBLOQUEADO</strong><br><br>
-        Lo lograste. ❤️<br><br>
-        Ya tienes todas las piezas.<br><br>
-        <strong>Ahora solo falta esperar al 9 de octubre.</strong>
+
+      <div class="clue">
+
+        🔓 <strong>DESBLOQUEADO</strong>
+
+        <br><br>
+
+        Lo lograste. ❤️
+
+        <br><br>
+
+        Ya tienes todas las piezas.
+
+        <br><br>
+
+        <strong>
+          Ahora solo falta esperar al
+          9 de octubre.
+        </strong>
+
       </div>
+
     `;
-  } else {
-    result.innerHTML = "<p>❌ Ese no parece ser el código... piensa un poquito más 👀</p>";
+
   }
+
+
+  else {
+
+    result.innerHTML = `
+
+      <p>
+
+        ❌ Ese no parece ser el código...
+
+        <br>
+
+        Piensa un poquito más 👀
+
+      </p>
+
+    `;
+
+  }
+
 }
 
+
+/* =====================================================
+        CONTADOR
+===================================================== */
+
 function updateCountdown() {
+
   const now = new Date();
-  const distance = REVEAL_DATE - now;
+
+  const distance =
+    REVEAL_DATE - now;
+
+
+  /*
+    Cuando llega el 9 de octubre
+    a las 6:00 p. m.
+  */
 
   if (distance <= 0) {
-    document.getElementById("countdown").textContent = "✨ YA ES EL MOMENTO ✨";
-    document.getElementById("finalCountdown").textContent = "✨ YA PUEDES DESCUBRIRLO ✨";
+
+    document
+      .getElementById("countdown")
+      .textContent =
+      "✨ YA ES EL MOMENTO ✨";
+
+
+    document
+      .getElementById("finalCountdown")
+      .textContent =
+      "✨ YA PUEDES DESCUBRIRLO ✨";
+
+
     showFinalButton();
+
+    return;
+
+  }
+
+
+  const days =
+    Math.floor(distance / 86400000);
+
+
+  const hours =
+    Math.floor(
+      (distance % 86400000) / 3600000
+    );
+
+
+  const minutes =
+    Math.floor(
+      (distance % 3600000) / 60000
+    );
+
+
+  const seconds =
+    Math.floor(
+      (distance % 60000) / 1000
+    );
+
+
+  const text =
+    `${days}d ${hours}h ${minutes}m ${seconds}s`;
+
+
+  document
+    .getElementById("countdown")
+    .textContent = text;
+
+
+  document
+    .getElementById("finalCountdown")
+    .textContent = text;
+
+}
+
+
+/* =====================================================
+        MOSTRAR GOOGLE MAPS
+===================================================== */
+
+function showFinalButton() {
+
+  const container =
+    document.getElementById("finalButton");
+
+
+  /*
+    Evitamos crear el botón varias veces.
+  */
+
+  if (container.dataset.revealed === "true") {
     return;
   }
 
-  const days = Math.floor(distance / 86400000);
-  const hours = Math.floor((distance % 86400000) / 3600000);
-  const minutes = Math.floor((distance % 3600000) / 60000);
-  const seconds = Math.floor((distance % 60000) / 1000);
 
-  const text = `${days}d ${hours}h ${minutes}m ${seconds}s`;
-  document.getElementById("countdown").textContent = text;
-  document.getElementById("finalCountdown").textContent = text;
-}
+  container.dataset.revealed = "true";
 
-function showFinalButton() {
-  const container = document.getElementById("finalButton");
+
   container.innerHTML = `
-    <div class='clue'>
-      🎁 <strong>AHORA SÍ</strong><br><br>
-      Después de esperar todo este tiempo...<br><br>
-      ya puedes descubrir a dónde vamos. ❤️
+
+    <div class="clue">
+
+      🎁 <strong>AHORA SÍ</strong>
+
+      <br><br>
+
+      Después de esperar todo este tiempo...
+
+      <br><br>
+
+      ya puedes descubrir
+      a dónde vamos. ❤️
+
     </div>
-    <div class='final-place'>📍 ${PLACE_NAME}</div>
-    <a class='maps-button' href='${MAPS_LINK}' target='_blank'>ABRIR GOOGLE MAPS 📍</a>
+
+
+    <div class="final-place">
+
+      📍 ${PLACE_NAME}
+
+    </div>
+
+
+    <a
+      class="maps-button"
+      href="${MAPS_LINK}"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+
+      ABRIR GOOGLE MAPS 📍
+
+    </a>
+
   `;
+
 }
+
+
+/* =====================================================
+        INICIAR
+===================================================== */
 
 updateCountdown();
+
 setInterval(updateCountdown, 1000);
+
 </script>
 
 </body>
