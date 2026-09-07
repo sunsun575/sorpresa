@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -22,10 +23,6 @@ body {
   align-items: center;
   padding: 20px;
 }
-
-/* =========================
-      CONTENEDOR
-========================= */
 
 .card {
   width: min(92vw, 620px);
@@ -67,10 +64,6 @@ h1 {
   margin: 5px 0 15px;
 }
 
-h2 {
-  font-size: 23px;
-}
-
 p {
   font-size: 17px;
   line-height: 1.6;
@@ -80,8 +73,7 @@ p {
         BOTONES
 ========================= */
 
-button,
-.back-button {
+button {
   border: none;
   border-radius: 999px;
   padding: 13px 22px;
@@ -94,8 +86,7 @@ button,
   font-family: inherit;
 }
 
-button:hover,
-.back-button:hover {
+button:hover {
   transform: translateY(-2px);
   box-shadow: 0 7px 18px rgba(100,50,70,.15);
 }
@@ -103,12 +94,6 @@ button:hover,
 .secondary {
   background: #ead5dc;
   color: #4a3038;
-}
-
-.locked-button {
-  background: #eee4e7;
-  color: #9b8189;
-  cursor: not-allowed;
 }
 
 /* =========================
@@ -138,7 +123,7 @@ button:hover,
 }
 
 .menu-item.locked {
-  opacity: .55;
+  opacity: .45;
   cursor: not-allowed;
 }
 
@@ -146,6 +131,34 @@ button:hover,
   display: block;
   font-size: 30px;
   margin-bottom: 7px;
+}
+
+/* =========================
+        PIEZAS
+========================= */
+
+.pieces {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin: 20px 0;
+}
+
+.piece {
+  width: 45px;
+  height: 45px;
+  border-radius: 12px;
+  background: #ead5dc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 23px;
+  transition: .3s ease;
+}
+
+.piece.unlocked {
+  background: #f6cbd6;
+  transform: scale(1.05);
 }
 
 /* =========================
@@ -193,34 +206,6 @@ button:hover,
 }
 
 /* =========================
-        PIEZAS
-========================= */
-
-.pieces {
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-  margin: 20px 0;
-}
-
-.piece {
-  width: 45px;
-  height: 45px;
-  border-radius: 12px;
-  background: #ead5dc;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 23px;
-  transition: .3s ease;
-}
-
-.piece.unlocked {
-  background: #f6cbd6;
-  transform: scale(1.05);
-}
-
-/* =========================
         INPUT
 ========================= */
 
@@ -250,10 +235,6 @@ input:focus {
   margin: 20px 0;
 }
 
-/*
-  Todas las fotos tendrán exactamente
-  el mismo tamaño.
-*/
 .photo {
   width: 100%;
   aspect-ratio: 4 / 5;
@@ -277,11 +258,6 @@ input:focus {
   object-position: center;
   display: block;
 }
-
-/*
-  Cubierta que tapa la fotografía
-  hasta que se toca.
-*/
 
 .photo-cover {
   position: absolute;
@@ -343,18 +319,7 @@ input:focus {
 }
 
 /* =========================
-      MENSAJE FINAL
-========================= */
-
-.final-message {
-  margin-top: 20px;
-  padding: 20px;
-  border-radius: 20px;
-  background: #fff1f4;
-}
-
-/* =========================
-      RESPONSIVE
+        RESPONSIVE
 ========================= */
 
 @media (max-width: 600px) {
@@ -397,11 +362,6 @@ input:focus {
     font-size: 27px;
   }
 
-  /*
-    Las fotos siguen siendo 3 juntas,
-    pero un poco más compactas.
-  */
-
   .photo-grid {
     grid-template-columns: repeat(3, 1fr);
     gap: 7px;
@@ -435,12 +395,6 @@ input:focus {
   }
 }
 
-/*
-  En celulares muy pequeños,
-  hacemos las fotos un poquito más grandes
-  para que sigan siendo fáciles de tocar.
-*/
-
 @media (max-width: 380px) {
 
   .photo-grid {
@@ -466,57 +420,47 @@ input:focus {
 
 <div class="card">
 
-<!-- =========================
-        INICIO
-========================= -->
+<!-- =====================================================
+        1. CÓDIGO
+===================================================== -->
 
-<section id="home">
+<section id="code">
 
-  <div class="emoji">💌</div>
+  <div class="emoji">🔐</div>
 
-  <h1>Holitas, tengo algo preparado para ti...</h1>
+  <h1>Antes de comenzar...</h1>
 
   <p>
-    Si llegaste hasta aquí, significa que abriste el sobre de sorpresa
-    y escaneaste el QR 👀
+    Hay una primera cosa que tienes que descubrir.
     <br><br>
-
-    Hay varias cosas escondidas en esta pequeña página.
+    Todo lo demás está bloqueado por ahora. 👀
     <br><br>
-
-    Puedes explorarlas, descubrir pistas y recordar algunas cosas de nosotros.
+    <strong>
+      ¿Cuál crees que es el código?
+    </strong>
   </p>
 
-  <div class="countdown-box">
+  <input
+    id="secretInput"
+    type="text"
+    placeholder="Código"
+    autocomplete="off"
+  >
 
-    <div class="countdown-title">
-      🎁 Nuestro 2do mes
-    </div>
+  <br>
 
-    <div>
-      9 de octubre · 6:00 p. m.
-    </div>
-
-    <div id="countdown">
-      Calculando...
-    </div>
-
-  </div>
-
-  <button onclick="openMenu()">
-    COMENZAR 💗
+  <button onclick="checkCode()">
+    DESBLOQUEAR 🔓
   </button>
 
-  <p class="small">
-    Hay una última cosa que todavía no puedes abrir... 🔒
-  </p>
+  <div id="codeResult"></div>
 
 </section>
 
 
-<!-- =========================
+<!-- =====================================================
         MENÚ
-========================= -->
+===================================================== -->
 
 <section id="menu" class="hidden">
 
@@ -525,162 +469,102 @@ input:focus {
   <h1>Tu misión</h1>
 
   <p>
-    Explora las diferentes partes de nuestra historia.
+    Ahora sí...
     <br>
-    Algunas esconden pistas. 👀
+    Explora cada parte de nuestra historia. ❤️
+    <br><br>
+    Algunas esconden pistas.
   </p>
 
   <div class="pieces">
 
-    <div class="piece" id="piece1">
-      🔒
-    </div>
-
-    <div class="piece" id="piece2">
-      🔒
-    </div>
-
-    <div class="piece" id="piece3">
-      🔒
-    </div>
-
-    <div class="piece" id="piece4">
-      🔒
-    </div>
+    <div class="piece" id="piece1">🔒</div>
+    <div class="piece" id="piece2">🔒</div>
+    <div class="piece" id="piece3">🔒</div>
+    <div class="piece" id="piece4">🔒</div>
+    <div class="piece" id="piece5">🔒</div>
 
   </div>
 
 
   <div class="menu">
 
-    <div class="menu-item"
-         onclick="showPage('invitation')">
+    <!-- PRUEBA 2 -->
 
-      <span class="menu-icon">💌</span>
-      La invitación
-
-    </div>
-
-
-    <div class="menu-item"
-         onclick="showPage('memory')">
-
+    <div
+      class="menu-item"
+      id="menuMemory"
+      onclick="showPage('memory')"
+    >
       <span class="menu-icon">🧩</span>
       ¿Cuánto recuerdas?
-
     </div>
 
 
-    <div class="menu-item"
-         onclick="showPage('music')">
+    <!-- PRUEBA 3 -->
 
+    <div
+      class="menu-item locked"
+      id="menuMusic"
+      onclick="showPage('music')"
+    >
       <span class="menu-icon">🎵</span>
       Una canción
-
     </div>
 
 
-    <div class="menu-item"
-         onclick="showPage('photos')">
+    <!-- PRUEBA 4 -->
 
+    <div
+      class="menu-item locked"
+      id="menuPhotos"
+      onclick="showPage('photos')"
+    >
       <span class="menu-icon">📸</span>
       Un recuerdo
-
     </div>
 
 
-    <div class="menu-item locked"
-         onclick="showPage('finalClue')">
+    <!-- PRUEBA 5 -->
 
-      <span class="menu-icon">🔐</span>
-      Última pista
-
+    <div
+      class="menu-item locked"
+      id="menuInvitation"
+      onclick="showPage('invitation')"
+    >
+      <span class="menu-icon">💌</span>
+      La invitación
     </div>
 
 
-    <div class="menu-item locked"
-         onclick="showPage('reveal')">
+    <!-- FINAL -->
 
+    <div
+      class="menu-item locked"
+      id="menuReveal"
+      onclick="showPage('reveal')"
+    >
       <span class="menu-icon">🎁</span>
       La sorpresa
-
     </div>
 
   </div>
 
   <br>
 
-  <button class="secondary"
-          onclick="goHome()">
-
-    ← Volver
-
+  <button
+    class="secondary"
+    onclick="goHome()"
+  >
+    ← Inicio
   </button>
 
 </section>
 
 
-<!-- =========================
-        INVITACIÓN
-========================= -->
-
-<section id="invitation" class="hidden">
-
-  <div class="emoji">💌</div>
-
-  <h1>La invitación</h1>
-
-  <p>
-
-    Bueno...
-    <br><br>
-
-    No podía simplemente decirte que tengo una sorpresa.
-    <br><br>
-
-    Tenías que descubrirla poquito a poquito. 🤭
-    <br><br>
-
-    Así que preparé esto especialmente para ti.
-
-  </p>
-
-
-  <div class="clue">
-
-    <div class="clue-number">
-      PRIMERA PISTA - INVITACIÓN
-    </div>
-
-    <div class="clue-text">
-
-      📅 Viernes 9 de octubre
-      <br>
-
-      ⏰ Hora: 6 pm
-      <br>
-
-      💌 Lugar: Descúbrelo
-      <br><br>
-
-      No hagas reservas.
-      Esta vez yo me encargo 🫶
-
-    </div>
-
-  </div>
-
-
-  <button onclick="unlockPiece(1); backToMenu()">
-    GUARDAR PISTA 🧩
-  </button>
-
-</section>
-
-
-<!-- =========================
-        MEMORIA
-========================= -->
+<!-- =====================================================
+        2. MEMORIA
+===================================================== -->
 
 <section id="memory" class="hidden">
 
@@ -689,14 +573,12 @@ input:focus {
   <h1>¿Cuánto recuerdas?</h1>
 
   <p>
-
-    Primera pregunta:
+    Segunda prueba...
     <br><br>
 
     <strong>
       ¿Cuál fue nuestro primer concierto juntos?
     </strong>
-
   </p>
 
 
@@ -721,19 +603,19 @@ input:focus {
 
   <br>
 
-  <button class="secondary"
-          onclick="backToMenu()">
-
+  <button
+    class="secondary"
+    onclick="backToMenu()"
+  >
     ← Volver
-
   </button>
 
 </section>
 
 
-<!-- =========================
-        MÚSICA
-========================= -->
+<!-- =====================================================
+        3. MÚSICA
+===================================================== -->
 
 <section id="music" class="hidden">
 
@@ -746,7 +628,9 @@ input:focus {
     Hay canciones que simplemente son canciones.
     <br><br>
 
-    Y hay otras que terminan convirtiéndose en recuerdos. ❤️
+    Y hay otras que terminan convirtiéndose
+    en recuerdos. ❤️
+
     <br><br>
 
     <strong>
@@ -777,19 +661,19 @@ input:focus {
 
   <br>
 
-  <button class="secondary"
-          onclick="backToMenu()">
-
+  <button
+    class="secondary"
+    onclick="backToMenu()"
+  >
     ← Volver
-
   </button>
 
 </section>
 
 
-<!-- =========================
-        FOTOS
-========================= -->
+<!-- =====================================================
+        4. FOTOS
+===================================================== -->
 
 <section id="photos" class="hidden">
 
@@ -798,69 +682,63 @@ input:focus {
   <h1>Un pequeño recuerdo</h1>
 
   <p>
-
-    Una de estas opciones esconde otra pista.
-    <br>
-
+    Una de estas fotos esconde otra pista.
+    <br><br>
     Confía en tu intuición. 👀
-
   </p>
 
 
   <div class="photo-grid">
 
-    <div class="photo"
-         onclick="answerPhoto(1)">
+    <div
+      class="photo"
+      onclick="answerPhoto(1)"
+    >
 
-      <img src="foto1.jpeg"
-           alt="Foto 1">
+      <img
+        src="foto1.jpeg"
+        alt="Foto 1"
+      >
 
       <div class="photo-cover">
-
         💌
-
-        <span>
-          Descubrir
-        </span>
-
+        <span>Descubrir</span>
       </div>
 
     </div>
 
 
-    <div class="photo"
-         onclick="answerPhoto(2)">
+    <div
+      class="photo"
+      onclick="answerPhoto(2)"
+    >
 
-      <img src="foto2.jpeg"
-           alt="Foto 2">
+      <img
+        src="foto2.jpeg"
+        alt="Foto 2"
+      >
 
       <div class="photo-cover">
-
         💌
-
-        <span>
-          Descubrir
-        </span>
-
+        <span>Descubrir</span>
       </div>
 
     </div>
 
 
-    <div class="photo"
-         onclick="answerPhoto(3)">
+    <div
+      class="photo"
+      onclick="answerPhoto(3)"
+    >
 
-      <img src="foto3.jpeg"
-           alt="Foto 3">
+      <img
+        src="foto3.jpeg"
+        alt="Foto 3"
+      >
 
       <div class="photo-cover">
-
         💌
-
-        <span>
-          Descubrir
-        </span>
-
+        <span>Descubrir</span>
       </div>
 
     </div>
@@ -872,72 +750,81 @@ input:focus {
 
   <br>
 
-  <button class="secondary"
-          onclick="backToMenu()">
-
+  <button
+    class="secondary"
+    onclick="backToMenu()"
+  >
     ← Volver
-
   </button>
 
 </section>
 
 
-<!-- =========================
-        ÚLTIMA PISTA
-========================= -->
+<!-- =====================================================
+        5. INVITACIÓN
+===================================================== -->
 
-<section id="finalClue" class="hidden">
+<section id="invitation" class="hidden">
 
-  <div class="emoji">🔐</div>
+  <div class="emoji">💌</div>
 
-  <h1>Ya casi...</h1>
+  <h1>La invitación</h1>
 
   <p>
-
-    Has encontrado todas las pistas anteriores.
+    Llegaste hasta aquí... ❤️
     <br><br>
 
-    Pero hay una última cosa que necesitas descubrir.
-    <br><br>
-
-    Introduce el código, confía en tu intuición. 👀
-
+    Y ahora sí creo que mereces saber
+    cuándo será nuestra próxima aventura.
   </p>
 
 
-  <input
-    id="secretInput"
-    type="text"
-    placeholder="Código"
-    autocomplete="off"
-  >
+  <div class="clue">
 
-  <br>
+    <div class="clue-number">
+      ÚLTIMA PISTA
+    </div>
+
+    <div class="clue-text">
+
+      📅 <strong>Viernes 9 de octubre</strong>
+
+      <br><br>
+
+      ⏰ <strong>6:00 p. m.</strong>
+
+      <br><br>
+
+      💌 El lugar...
+      todavía tendrás que descubrirlo.
+
+      <br><br>
+
+      No hagas reservas.
+      Esta vez yo me encargo 🫶
+
+    </div>
+
+  </div>
 
 
-  <button onclick="checkCode()">
-    DESBLOQUEAR 🔓
-  </button>
+  <p>
+    Guarda esta fecha. ❤️
+    <br>
+    El resto lo descubrirás en el momento indicado.
+  </p>
 
 
-  <div id="codeResult"></div>
-
-  <br>
-
-
-  <button class="secondary"
-          onclick="backToMenu()">
-
-    ← Volver
-
+  <button onclick="unlockPiece(5); backToMenu()">
+    GUARDAR PISTA 🧩
   </button>
 
 </section>
 
 
-<!-- =========================
-        REVELACIÓN
-========================= -->
+<!-- =====================================================
+        6. SORPRESA FINAL
+===================================================== -->
 
 <section id="reveal" class="hidden">
 
@@ -948,14 +835,15 @@ input:focus {
   <p>
 
     Bueno...
+
     <br><br>
 
     Después de todas estas pistas,
-    creo que ya estás listo.
+    creo que ya estás lista. ❤️
+
     <br><br>
 
-    Pero todavía tienes que esperar
-    hasta el momento indicado. 👀
+    Pero el lugar todavía está escondido.
 
   </p>
 
@@ -963,8 +851,10 @@ input:focus {
   <div class="countdown-box">
 
     <div class="countdown-title">
-      🔒 SE DESBLOQUEA
+      🔒 EL LUGAR SE DESBLOQUEA
     </div>
+
+    <br>
 
     <strong>
       9 de octubre · 6:00 p. m.
@@ -979,14 +869,14 @@ input:focus {
 
   <div id="finalButton"></div>
 
+
   <br>
 
-
-  <button class="secondary"
-          onclick="backToMenu()">
-
+  <button
+    class="secondary"
+    onclick="backToMenu()"
+  >
     ← Volver
-
   </button>
 
 </section>
@@ -1001,49 +891,287 @@ input:focus {
 ===================================================== */
 
 /*
-  Fecha en la que empieza la experiencia.
-*/
-const START_DATE =
-  new Date("2026-09-06T00:00:00-05:00");
+  FECHA FINAL
 
-
-/*
-  ESTE es el momento exacto en que aparecerá
-  el lugar y el botón de Google Maps.
+  El lugar y Google Maps aparecerán
+  automáticamente el 9 de octubre de 2026
+  exactamente a las 6:00 p. m.
 */
+
 const REVEAL_DATE =
   new Date("2026-10-09T18:00:00-05:00");
 
 
 /*
-  Código para la última pista.
+  CÓDIGO
+
+  Este es el primer código que tiene
+  que descubrir.
 */
+
 const SECRET_CODE = "1101";
 
 
 /*
-  Nombre que aparecerá al final.
+  NOMBRE DEL LUGAR
+
+  Cámbialo por el nombre real.
 */
+
 const PLACE_NAME = "LUGAR SORPRESA";
 
 
 /*
-  IMPORTANTE:
-  Reemplaza este enlace por el enlace REAL
-  de Google Maps de tu lugar.
+  ENLACE DE GOOGLE MAPS
+
+  REEMPLAZA esto por el enlace exacto
+  del lugar sorpresa.
 */
+
 const MAPS_LINK =
   "https://www.google.com/maps";
 
 
 /* =====================================================
-        PROGRESO
+        ESTADO
 ===================================================== */
 
 let piece1Unlocked = false;
 let piece2Unlocked = false;
 let piece3Unlocked = false;
 let piece4Unlocked = false;
+let piece5Unlocked = false;
+
+
+/* =====================================================
+        CARGAR PROGRESO
+===================================================== */
+
+function loadProgress() {
+
+  piece1Unlocked =
+    localStorage.getItem("piece1") === "true";
+
+  piece2Unlocked =
+    localStorage.getItem("piece2") === "true";
+
+  piece3Unlocked =
+    localStorage.getItem("piece3") === "true";
+
+  piece4Unlocked =
+    localStorage.getItem("piece4") === "true";
+
+  piece5Unlocked =
+    localStorage.getItem("piece5") === "true";
+
+
+  updatePieces();
+
+}
+
+
+/* =====================================================
+        GUARDAR PROGRESO
+===================================================== */
+
+function saveProgress() {
+
+  localStorage.setItem(
+    "piece1",
+    piece1Unlocked
+  );
+
+  localStorage.setItem(
+    "piece2",
+    piece2Unlocked
+  );
+
+  localStorage.setItem(
+    "piece3",
+    piece3Unlocked
+  );
+
+  localStorage.setItem(
+    "piece4",
+    piece4Unlocked
+  );
+
+  localStorage.setItem(
+    "piece5",
+    piece5Unlocked
+  );
+
+}
+
+
+/* =====================================================
+        ACTUALIZAR PIEZAS
+===================================================== */
+
+function updatePieces() {
+
+  /*
+    Pieza 1 = código
+  */
+
+  if (piece1Unlocked) {
+
+    document.getElementById("piece1")
+      .textContent = "🧩";
+
+    document.getElementById("piece1")
+      .classList.add("unlocked");
+
+  }
+
+
+  /*
+    Pieza 2 = memoria
+  */
+
+  if (piece2Unlocked) {
+
+    document.getElementById("piece2")
+      .textContent = "🧩";
+
+    document.getElementById("piece2")
+      .classList.add("unlocked");
+
+  }
+
+
+  /*
+    Pieza 3 = canción
+  */
+
+  if (piece3Unlocked) {
+
+    document.getElementById("piece3")
+      .textContent = "🧩";
+
+    document.getElementById("piece3")
+      .classList.add("unlocked");
+
+  }
+
+
+  /*
+    Pieza 4 = foto
+  */
+
+  if (piece4Unlocked) {
+
+    document.getElementById("piece4")
+      .textContent = "🧩";
+
+    document.getElementById("piece4")
+      .classList.add("unlocked");
+
+  }
+
+
+  /*
+    Pieza 5 = invitación
+  */
+
+  if (piece5Unlocked) {
+
+    document.getElementById("piece5")
+      .textContent = "🔓";
+
+    document.getElementById("piece5")
+      .classList.add("unlocked");
+
+  }
+
+
+  updateMenu();
+
+}
+
+
+/* =====================================================
+        ACTUALIZAR MENÚ
+===================================================== */
+
+function updateMenu() {
+
+  /*
+    CANCIÓN
+    Se desbloquea después de memoria.
+  */
+
+  const music =
+    document.getElementById("menuMusic");
+
+  if (piece2Unlocked) {
+
+    music.classList.remove("locked");
+
+  } else {
+
+    music.classList.add("locked");
+
+  }
+
+
+  /*
+    FOTOS
+    Se desbloquean después de canción.
+  */
+
+  const photos =
+    document.getElementById("menuPhotos");
+
+  if (piece3Unlocked) {
+
+    photos.classList.remove("locked");
+
+  } else {
+
+    photos.classList.add("locked");
+
+  }
+
+
+  /*
+    INVITACIÓN
+    Se desbloquea después de foto.
+  */
+
+  const invitation =
+    document.getElementById("menuInvitation");
+
+  if (piece4Unlocked) {
+
+    invitation.classList.remove("locked");
+
+  } else {
+
+    invitation.classList.add("locked");
+
+  }
+
+
+  /*
+    SORPRESA
+    Se desbloquea después de invitación.
+  */
+
+  const reveal =
+    document.getElementById("menuReveal");
+
+  if (piece5Unlocked) {
+
+    reveal.classList.remove("locked");
+
+  } else {
+
+    reveal.classList.add("locked");
+
+  }
+
+}
 
 
 /* =====================================================
@@ -1056,7 +1184,9 @@ function hideAll() {
     document.querySelectorAll("section");
 
   sections.forEach(section => {
+
     section.classList.add("hidden");
+
   });
 
 }
@@ -1077,9 +1207,26 @@ function goHome() {
 
   hideAll();
 
-  document
-    .getElementById("home")
-    .classList.remove("hidden");
+  /*
+    Si ya acertó el código,
+    volver al menú.
+
+    Si no, volver al código.
+  */
+
+  if (piece1Unlocked) {
+
+    document
+      .getElementById("menu")
+      .classList.remove("hidden");
+
+  } else {
+
+    document
+      .getElementById("code")
+      .classList.remove("hidden");
+
+  }
 
 }
 
@@ -1096,20 +1243,20 @@ function backToMenu() {
 
 
 /* =====================================================
-        ABRIR SECCIONES
+        ABRIR PÁGINAS
 ===================================================== */
 
 function showPage(id) {
 
   /*
-    La última pista solamente aparece
-    después de conseguir las 4 piezas.
+    MEMORIA
+    Siempre disponible después del código.
   */
 
-  if (id === "finalClue" && !piece4Unlocked) {
+  if (id === "memory" && !piece1Unlocked) {
 
     alert(
-      "🔒 Todavía no puedes abrir esta parte.\n\nCompleta las pistas anteriores."
+      "🔒 Primero tienes que descubrir el código."
     );
 
     return;
@@ -1117,10 +1264,60 @@ function showPage(id) {
 
 
   /*
-    La sorpresa se puede abrir desde el menú,
-    pero el lugar permanece bloqueado hasta
-    el 9 de octubre a las 6:00 p. m.
+    MÚSICA
   */
+
+  if (id === "music" && !piece2Unlocked) {
+
+    alert(
+      "🔒 Primero completa la prueba anterior."
+    );
+
+    return;
+  }
+
+
+  /*
+    FOTOS
+  */
+
+  if (id === "photos" && !piece3Unlocked) {
+
+    alert(
+      "🔒 Todavía no puedes abrir esta parte."
+    );
+
+    return;
+  }
+
+
+  /*
+    INVITACIÓN
+  */
+
+  if (id === "invitation" && !piece4Unlocked) {
+
+    alert(
+      "🔒 Primero encuentra la pista anterior."
+    );
+
+    return;
+  }
+
+
+  /*
+    SORPRESA
+  */
+
+  if (id === "reveal" && !piece5Unlocked) {
+
+    alert(
+      "🔒 Todavía no puedes abrir esta parte."
+    );
+
+    return;
+  }
+
 
   hideAll();
 
@@ -1129,13 +1326,10 @@ function showPage(id) {
     .classList.remove("hidden");
 
 
-  /*
-    Actualizamos inmediatamente el contador
-    cuando entra a la sección final.
-  */
-
   if (id === "reveal") {
+
     updateCountdown();
+
   }
 
 }
@@ -1151,24 +1345,12 @@ function unlockPiece(number) {
 
     piece1Unlocked = true;
 
-    document.getElementById("piece1")
-      .textContent = "🧩";
-
-    document.getElementById("piece1")
-      .classList.add("unlocked");
-
   }
 
 
   if (number === 2) {
 
     piece2Unlocked = true;
-
-    document.getElementById("piece2")
-      .textContent = "🧩";
-
-    document.getElementById("piece2")
-      .classList.add("unlocked");
 
   }
 
@@ -1177,12 +1359,6 @@ function unlockPiece(number) {
 
     piece3Unlocked = true;
 
-    document.getElementById("piece3")
-      .textContent = "🧩";
-
-    document.getElementById("piece3")
-      .classList.add("unlocked");
-
   }
 
 
@@ -1190,11 +1366,103 @@ function unlockPiece(number) {
 
     piece4Unlocked = true;
 
-    document.getElementById("piece4")
-      .textContent = "🔓";
+  }
 
-    document.getElementById("piece4")
-      .classList.add("unlocked");
+
+  if (number === 5) {
+
+    piece5Unlocked = true;
+
+  }
+
+
+  saveProgress();
+
+  updatePieces();
+
+}
+
+
+/* =====================================================
+        CÓDIGO
+===================================================== */
+
+function checkCode() {
+
+  const input =
+    document
+      .getElementById("secretInput")
+      .value
+      .trim();
+
+
+  const result =
+    document.getElementById("codeResult");
+
+
+  if (input === SECRET_CODE) {
+
+    unlockPiece(1);
+
+
+    result.innerHTML = `
+
+      <div class="clue">
+
+        💗 <strong>¡CORRECTO!</strong>
+
+        <br><br>
+
+        Sabía que lo recordarías. 🥹
+
+        <br><br>
+
+        <strong>
+          Nuestra primera cita...
+        </strong>
+
+        <br><br>
+
+        Ahora sí puedes comenzar
+        a descubrir todo lo que preparé para ti. ❤️
+
+      </div>
+
+
+      <button onclick="openMenu()">
+        CONTINUAR 💗
+      </button>
+
+    `;
+
+  }
+
+
+  else {
+
+    result.innerHTML = `
+
+      <div class="clue">
+
+        💭
+
+        <br><br>
+
+        Mmm... ese no es.
+
+        <br><br>
+
+        <strong>
+          Piensa en una fecha importante...
+        </strong>
+
+        <br><br>
+
+        👀❤️
+
+      </div>
+
+    `;
 
   }
 
@@ -1202,7 +1470,7 @@ function unlockPiece(number) {
 
 
 /* =====================================================
-        PREGUNTA DE MEMORIA
+        MEMORIA
 ===================================================== */
 
 function memoryAnswer(option) {
@@ -1213,11 +1481,14 @@ function memoryAnswer(option) {
 
   if (option === "caribenos") {
 
+    unlockPiece(2);
+
+
     result.innerHTML = `
 
       <div class="clue">
 
-        🎉 ¡Correcto!
+        🎉 <strong>¡Correcto!</strong>
 
         <br><br>
 
@@ -1231,15 +1502,13 @@ function memoryAnswer(option) {
         <br><br>
 
         Hay recuerdos de las primeras veces
-        que son importantes para nosotros.
+        que son importantes para nosotros. ❤️
 
       </div>
 
 
-      <button onclick="unlockPiece(2); backToMenu()">
-
-        GUARDAR PISTA 🧩
-
+      <button onclick="backToMenu()">
+        CONTINUAR 🧩
       </button>
 
     `;
@@ -1251,15 +1520,19 @@ function memoryAnswer(option) {
 
     result.innerHTML = `
 
-      <p>
+      <div class="clue">
 
-        Esa fue mucho después de la primera 🤭
+        🤭
 
-        <br>
+        <br><br>
 
-        Intenta otra vez.
+        Esa fue mucho después de la primera.
 
-      </p>
+        <br><br>
+
+        Intenta otra vez. 👀
+
+      </div>
 
     `;
 
@@ -1270,19 +1543,21 @@ function memoryAnswer(option) {
 
     result.innerHTML = `
 
-      <p>
+      <div class="clue">
 
-        ¡Casi!
+        👀 ¡Casi!
+
+        <br><br>
 
         Acuérdate de que cuando llegamos,
         primero escuchamos a los Caribeños
-        y luego a Armonía 👀
+        y luego a Armonía.
 
-        <br>
+        <br><br>
 
-        Intenta otra vez.
+        Intenta otra vez. ❤️
 
-      </p>
+      </div>
 
     `;
 
@@ -1303,11 +1578,14 @@ function musicAnswer(correct) {
 
   if (correct) {
 
+    unlockPiece(3);
+
+
     result.innerHTML = `
 
       <div class="clue">
 
-        🎵 Exacto.
+        🎵 <strong>Exacto.</strong>
 
         <br><br>
 
@@ -1325,10 +1603,8 @@ function musicAnswer(correct) {
       </div>
 
 
-      <button onclick="unlockPiece(3); backToMenu()">
-
-        GUARDAR PISTA 🧩
-
+      <button onclick="backToMenu()">
+        CONTINUAR 🧩
       </button>
 
     `;
@@ -1340,15 +1616,19 @@ function musicAnswer(correct) {
 
     result.innerHTML = `
 
-      <p>
+      <div class="clue">
 
-        Mmm... esa no era 👀
+        🎵
 
-        <br>
+        <br><br>
+
+        Mmm... esa no era. 👀
+
+        <br><br>
 
         Intenta otra vez.
 
-      </p>
+      </div>
 
     `;
 
@@ -1383,16 +1663,19 @@ function answerPhoto(number) {
 
 
   /*
-    FOTO 1 = CORRECTA
+    FOTO 1 ES LA CORRECTA
   */
 
   if (number === 1) {
+
+    unlockPiece(4);
+
 
     result.innerHTML = `
 
       <div class="clue">
 
-        📸 ¡Correcto! 💗
+        📸 <strong>¡Correcto!</strong> 💗
 
         <br><br>
 
@@ -1403,13 +1686,16 @@ function answerPhoto(number) {
         Esta foto guarda un recuerdo
         demasiado importante contigo.
 
+        <br><br>
+
+        Y ya estás muy cerca...
+        👀❤️
+
       </div>
 
 
-      <button onclick="unlockPiece(4); backToMenu()">
-
-        GUARDAR PISTA 🧩
-
+      <button onclick="backToMenu()">
+        CONTINUAR 🧩
       </button>
 
     `;
@@ -1421,83 +1707,19 @@ function answerPhoto(number) {
 
     result.innerHTML = `
 
-      <p>
-
-        Mmm… esa no era 😌
-
-        <br>
-
-        Intenta otra vez.
-
-      </p>
-
-    `;
-
-  }
-
-}
-
-
-/* =====================================================
-        CÓDIGO FINAL
-===================================================== */
-
-function checkCode() {
-
-  const input =
-    document
-      .getElementById("secretInput")
-      .value
-      .trim();
-
-
-  const result =
-    document.getElementById("codeResult");
-
-
-  if (input === SECRET_CODE) {
-
-    result.innerHTML = `
-
       <div class="clue">
 
-        🔓 <strong>DESBLOQUEADO</strong>
+        😌
 
         <br><br>
 
-        Lo lograste. ❤️
+        Mmm… esa no era.
 
         <br><br>
 
-        Ya tienes todas las piezas.
-
-        <br><br>
-
-        <strong>
-          Ahora solo falta esperar al
-          9 de octubre.
-        </strong>
+        Intenta otra vez. 👀
 
       </div>
-
-    `;
-
-  }
-
-
-  else {
-
-    result.innerHTML = `
-
-      <p>
-
-        ❌ Ese no parece ser el código...
-
-        <br>
-
-        Piensa un poquito más 👀
-
-      </p>
 
     `;
 
@@ -1512,15 +1734,16 @@ function checkCode() {
 
 function updateCountdown() {
 
-  const now = new Date();
+  const now =
+    new Date();
+
 
   const distance =
     REVEAL_DATE - now;
 
 
   /*
-    Cuando llega el 9 de octubre
-    a las 6:00 p. m.
+    CUANDO LLEGUE EL MOMENTO
   */
 
   if (distance <= 0) {
@@ -1545,24 +1768,29 @@ function updateCountdown() {
 
 
   const days =
-    Math.floor(distance / 86400000);
+    Math.floor(
+      distance / 86400000
+    );
 
 
   const hours =
     Math.floor(
-      (distance % 86400000) / 3600000
+      (distance % 86400000) /
+      3600000
     );
 
 
   const minutes =
     Math.floor(
-      (distance % 3600000) / 60000
+      (distance % 3600000) /
+      60000
     );
 
 
   const seconds =
     Math.floor(
-      (distance % 60000) / 1000
+      (distance % 60000) /
+      1000
     );
 
 
@@ -1583,7 +1811,7 @@ function updateCountdown() {
 
 
 /* =====================================================
-        MOSTRAR GOOGLE MAPS
+        MOSTRAR LUGAR + MAPS
 ===================================================== */
 
 function showFinalButton() {
@@ -1592,12 +1820,12 @@ function showFinalButton() {
     document.getElementById("finalButton");
 
 
-  /*
-    Evitamos crear el botón varias veces.
-  */
+  if (
+    container.dataset.revealed === "true"
+  ) {
 
-  if (container.dataset.revealed === "true") {
     return;
+
   }
 
 
@@ -1646,14 +1874,52 @@ function showFinalButton() {
 
 
 /* =====================================================
-        INICIAR
+        INICIO
 ===================================================== */
+
+loadProgress();
+
+
+/*
+  Si todavía no ha puesto correctamente
+  el código, empieza por el código.
+
+  Si ya lo puso antes, puede entrar
+  directamente al menú.
+*/
+
+if (piece1Unlocked) {
+
+  hideAll();
+
+  document
+    .getElementById("menu")
+    .classList.remove("hidden");
+
+} else {
+
+  hideAll();
+
+  document
+    .getElementById("code")
+    .classList.remove("hidden");
+
+}
+
+
+/*
+  Actualizar contador cada segundo.
+*/
 
 updateCountdown();
 
-setInterval(updateCountdown, 1000);
+setInterval(
+  updateCountdown,
+  1000
+);
 
 </script>
 
 </body>
 </html>
+```
